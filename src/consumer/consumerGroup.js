@@ -345,6 +345,16 @@ module.exports = class ConsumerGroup {
   }
 
   /**
+   * @param {string} topic
+   * @param {number} partition
+   * @returns {Long}
+   */
+  committedOffsets(topic, partition) {
+    const committedOffsets = this.offsetManager.committedOffsets()
+    return committedOffsets[topic][partition]
+  }
+
+  /**
    * @param {import("../../types").TopicPartition} topicPartition
    */
   resetOffset({ topic, partition }) {

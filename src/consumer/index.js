@@ -316,6 +316,16 @@ module.exports = ({
     })
   }
 
+  const committed = async (topic, partition) => {
+    if (!consumerGroup) {
+      throw new KafkaJSNonRetriableError(
+        'Consumer group was not initialized, consumer#run must be called first'
+      )
+    }
+
+    return consumerGroup.committedOffsets(topic, partition)
+  }
+
   /**
    * @type {import("../../types").Consumer["commitOffsets"]}
    * @param topicPartitions
@@ -504,6 +514,7 @@ module.exports = ({
     subscribe,
     stop,
     run,
+    committed,
     commitOffsets,
     seek,
     describeGroup,
